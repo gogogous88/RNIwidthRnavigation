@@ -9,6 +9,10 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 // import Home from "./src/containers/Home";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./src/reducer";
 import AppNavigator from "./src/navigation/AppNavigator";
 
 const instructions = Platform.select({
@@ -20,10 +24,13 @@ const instructions = Platform.select({
 
 export default class App extends Component {
   render() {
+    const store = createStore(rootReducer, {}, applyMiddleware(thunk));
     return (
-      <View style={styles.container}>
-        <AppNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AppNavigator />
+        </View>
+      </Provider>
     );
   }
 }
