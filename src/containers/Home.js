@@ -8,6 +8,7 @@ import {
   UIManager
 } from "react-native";
 import { connect } from "react-redux";
+
 import MapView, { Marker } from "react-native-maps";
 
 class Home extends Component {
@@ -35,13 +36,15 @@ class Home extends Component {
   // };
 
   render() {
-    console.log(this.state.region);
+    // if (Platform.OS === "android") {
+    //   return <View style={{ flex: 1, backgroundColor: "blue" }} />;
+    // }
     return (
       <Animated.View style={{ flex: 1, backgroundColor: "red" }}>
         <MapView
           style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
           region={this.state.region}
-          onRegionChange={region => this.setState({ region })}
+          onRegionChangeComplete={region => this.setState({ region })}
         >
           {this.state.region &&
             this.state.region.latitude && (
